@@ -39,7 +39,7 @@ xor.compile(loss = "categorical_crossentropy", optimizer = "adam", metrics=['acc
 
 # Fitting the model
 
-history = xor.fit(X, y, nb_epoch=50, verbose=0)
+history = xor.fit(X, y, nb_epoch=180, verbose=0)
 
 # Scoring the model
 
