@@ -1,0 +1,2 @@
+In this .TXT i will appoint some important notes for programming in DL algorithms
+
