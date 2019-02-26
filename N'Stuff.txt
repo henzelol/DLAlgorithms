@@ -1,2 +1,20 @@
 In this .TXT i will appoint some important notes for programming in DL algorithms
 
+model.add(Conv2D(filters=32, kernel_size=3, strides=2, padding='same', 
+    activation='relu', input_shape=(128, 128, 3)))
+ #CONV2D MAKE THE VECTOR LARGER, BUT KEEP THE WEIGHT AND WIDHT ( THE Z DUPLICATE )
+ 
+model.add(MaxPooling2D(pool_size=2, strides=2, input_shape=(100, 100, 15)))
+
+#MAXPOOL DIVIDE BY 2 THE WEIGHT AND THE WIDHT OF THE VECTOR BUT KEEP THE DEEPNESS ( THE 'Z' REMAIN THE SAME )
+
+EX: Vector.shape[1] = 28x28x1
+    CONV2D
+    Vector.shape[1] = 28x28x16
+      MAXPOOL
+    Vector.Shape[1] = 14x14x16
+    
+    
+
+
+
