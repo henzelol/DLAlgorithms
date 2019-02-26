@@ -1,12 +1,19 @@
 In this .TXT i will appoint some important notes for programming in DL algorithms
 
-model.add(Conv2D(filters=32, kernel_size=3, strides=2, padding='same', 
-    activation='relu', input_shape=(128, 128, 3)))
+-model.add(Conv2D(filters=32, kernel_size=3, strides=2, padding='same', activation='relu', input_shape=(128, 128, 3)))
  #CONV2D MAKE THE VECTOR LARGER, BUT KEEP THE WEIGHT AND WIDHT ( THE Z DUPLICATE )
+ #adicionando strides = 1 e padding = 'same', faz com que ele sempre tenha o mesmo tamanho que a camada anterior, alcaçando melhores resultados.
+ #filters é quem controla o tamanho da profundidade do vetor, que irá aumentar gradativamente. o primeiro tem 16, o segundo 32 e etc.
+# kernel_size é o tamanho do quadrado que vai pecorrendo toda a imagem.padrão (2x2)
+ #activation=relu
  
-model.add(MaxPooling2D(pool_size=2, strides=2, input_shape=(100, 100, 15)))
-
+-model.add(MaxPooling2D(pool_size=2, strides=2, input_shape=(100, 100, 15)))
 #MAXPOOL DIVIDE BY 2 THE WEIGHT AND THE WIDHT OF THE VECTOR BUT KEEP THE DEEPNESS ( THE 'Z' REMAIN THE SAME )
+#utilizando pool_size=2 e strides=2, voce vai ter uma camada com metade do tamanho da anterior, sem modificar na profundidade.
+#inputs_shape somente na primeira camada.
+
+
+
 
 EX: Vector.shape[1] = 28x28x1
     CONV2D
@@ -14,7 +21,16 @@ EX: Vector.shape[1] = 28x28x1
       MAXPOOL
     Vector.Shape[1] = 14x14x16
     
+ Sempre adicione uma função de ativação ReLU às camadas Conv2D da sua CNN. Exceto pela última camada da rede, camadas Dense também devem ter uma função de ativação ReLU.
+Quando estiver construindo uma rede para classificação, a última camada na rede deve ser uma camada Dense com função de ativação softmax. O número de nós da camada final deve ser igual ao número total de classes no conjunto de dados
+    
+    
+conv1 = tf.layers.conv2d(inputs, 32, (5,5), padding='same', activation=tf.nn.relu) for a layer with a depth of 32, a 5x5 kernel, stride of (1,1), padding is 'same', and a ReLU activation. Similarly, for the max-pool layers, use tf.layers.max_pooling2d.
     
 
+
+BETTER WAY OF INITIALIZING THE WEIGHTS :
+TF.VARIABLE(TF.TRUNCATED.NORMAL(LAYER1_WEIGHTS_SHAPE,STDDEV=0.1))
+THE IDEIA IS USE RANDON NUMBERS BETWEEON -1 AND 1,MAYBE USING TF.RANDOM.NORMAL, BUT THE TRUNCATED NORMAL CUT DEPENDING THE SIZE OF THE MEAN OF THE NUMBERS, IF IT IS TOO FAR FROM THE MOST PART OF THE RANDOM NUMBERS, HE WILL BE CUT OFF.
 
 
