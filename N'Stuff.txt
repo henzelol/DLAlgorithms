@@ -34,3 +34,32 @@ TF.VARIABLE(TF.TRUNCATED.NORMAL(LAYER1_WEIGHTS_SHAPE,STDDEV=0.1))
 THE IDEIA IS USE RANDON NUMBERS BETWEEON -1 AND 1,MAYBE USING TF.RANDOM.NORMAL, BUT THE TRUNCATED NORMAL CUT DEPENDING THE SIZE OF THE MEAN OF THE NUMBERS, IF IT IS TOO FAR FROM THE MOST PART OF THE RANDOM NUMBERS, HE WILL BE CUT OFF.
 
 
+from keras.preprocessing.image import ImageDataGenerator
+
+# create and configure augmented image generator
+datagen_train = ImageDataGenerator(
+    width_shift_range=0.1,  # randomly shift images horizontally (10% of total width)
+    height_shift_range=0.1, # randomly shift images vertically (10% of total height)
+    rotation_range=20, # randomly rotate images in the range (degrees, 0 to 180)
+    horizontal_flip=True) # randomly flip images horizontally
+
+# fit augmented image generator on data
+datagen_train.fit(x_train)
+
+(after compiling all )
+
+rom keras.callbacks import ModelCheckpoint   
+
+batch_size = 32
+epochs = 100
+
+# train the model
+checkpointer = ModelCheckpoint(filepath='aug_model.weights.best.hdf5', verbose=1, 
+                               save_best_only=True)
+model.fit_generator(datagen_train.flow(x_train, y_train, batch_size=batch_size),
+                    steps_per_epoch=x_train.shape[0] // batch_size,
+                    epochs=epochs, verbose=2, callbacks=[checkpointer],
+                    validation_data=(x_valid, y_valid),
+                    validation_steps=x_valid.shape[0] // batch_size)
+
+
